@@ -1,0 +1,29 @@
+resources:
+  jobs:
+    New_Job_2026_10_16_01_59_15:
+      name: New Job 2026-10-16 01:59:15
+      trigger:
+        pause_status: UNPAUSED
+        periodic:
+          interval: 1
+          unit: DAYS
+      tasks:
+        - task_key: to_Bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/risso.evandro@gmail.com/rocketlab26.2/RL_Atividade_2/Landing_to_Bronze
+            source: WORKSPACE
+        - task_key: to_Silver
+          depends_on:
+            - task_key: to_Bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/risso.evandro@gmail.com/rocketlab26.2/RL_Atividade_2/Bronze_to_Silver
+            source: WORKSPACE
+        - task_key: to_Gold
+          depends_on:
+            - task_key: to_Silver
+          notebook_task:
+            notebook_path: /Workspace/Users/risso.evandro@gmail.com/rocketlab26.2/RL_Atividade_2/Silver_to_Gold
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
